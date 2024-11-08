@@ -107,6 +107,53 @@ def AI_family_meal(family_info, available_meals):
         print(response.text)
         return None
 
+def AI_shopping(family_info, final_ingredients):
+    load_dotenv()
+    API_KEY = os.getenv("GEMINI_API_KEY")
+    API_URL = os.getenv("GEMINI_API_URL")
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    
+    today = datetime.datetime.now().date() 
+
+    data = {
+    "contents": [
+            {
+                "parts": [
+                    {
+                        "text": (
+                            f"""Bạn là một chuyên gia dinh dưỡng. 
+                            Hãy gợi ý nguyên liệu cần mua cho thực đơn gia đình, 
+                            với thông tin cá nhân từng thành viên: {family_info}. 
+                            Các món ăn và nguyên liệu được liệt kê như sau: {final_ingredients}. 
+                            Yêu cầu bổ sung: 
+                            Bỏ qua các gia vị như mắm, muối, tiêu, dầu ăn, hạt nêm, tương ớt, đường, gia vị khác. 
+                            In ra kết quả dưới dạng JSON, chỉ chứa tên nguyên liệu, số lượng và đơn vị, không giải thích hay có thông tin gì thêm. 
+                            Ví dụ kết quả trả về: {{ "suggested_ingredients": [ {{ "name": "Trứng", "unit": "quả", "quantity": 37 }}, {{ "name": "Cà chua", "unit": "trái", "quantity": 10 }}, {{ "name": "Hành lá", "unit": "cây", "quantity": 66 }} ] }}
+                            Không cần thêm \n hoặc \t vào kết quả trả về.
+                            """
+                        )
+                    }
+                ]
+            }
+        ]
+    }
+
+
+    response = requests.post(API_URL, headers=headers, data=json.dumps(data), params={"key": API_KEY})
+    
+    if response.status_code == 200:
+        try:
+            response_data = response.json()  
+            return response_data
+        except json.JSONDecodeError:
+            return response.text  
+    else:
+        print(f"Lỗi khi gọi API Gemini: {response.status_code}")
+        print(response.text)
+        return None
+    
 # Hàm lấy tất cả các công thức nấu ăn từ db
 def get_all_recipes(conn):
     cursor = conn.cursor()
@@ -134,6 +181,27 @@ def format_meal_plan(meal_plan):
         print("Không tìm thấy nội dung JSON trong meal_plan.")
         return None
 
+def format_ingredients(text):
+    ingredients = []
+    lines = text.splitlines()
+    
+    for line in lines:
+        # Sử dụng regex để tìm tên nguyên liệu và số lượng
+        match = re.match(r'\* \*\*(.+?)\*\*:\s*([\d.]+)([a-zA-Z]+)', line)
+        
+        if match:
+            name = match.group(1).strip().lower()  
+            quantity = match.group(2).strip()      
+            unit = match.group(3).strip()     
+            
+            ingredients.append({
+                "name": name,
+                "quantity": quantity,
+                "unit": unit
+            })
+    
+    return {"suggested_ingredients": ingredients}
+
 # Hàm chính để chuyển thực đơn gia đình thành lịch sử ăn uống và lưu vào db
 def import_family_meal_to_history(general_meal, user_id, conn):
     cursor = conn.cursor()
@@ -146,6 +214,88 @@ def import_family_meal_to_history(general_meal, user_id, conn):
                 """, (user_id, recipe_id, day, meal_time))
     conn.commit()
 
+# Nguyên liệu cần mua cho thực đơn gia đình
+def get_ingredients_from_meal_plan(general_meal, conn):
+        cursor = conn.cursor()
+        ingredients = defaultdict(lambda: {"quantity": 0, "unit": "g"})
+        
+        for day, meals in general_meal.items():
+            for meal_time, recipes in meals.items():
+                for recipe_id in recipes:
+                    cursor.execute("SELECT ingredient, quantity, unit FROM recipes WHERE recipe_id = ?", (recipe_id,))
+                    recipe_ingredients = cursor.fetchall()
+                    for ingredient, quantity, unit in recipe_ingredients:
+                        if unit == "g":
+                            ingredients[ingredient]["quantity"] += quantity
+                        else:
+                            # Handle other units if necessary
+                            pass
+        
+        suggested_ingredients = [{"name": name, "quantity": str(info["quantity"]), "unit": info["unit"]} for name, info in ingredients.items()]
+        return {"suggested_ingredients": suggested_ingredients}
+
+def format_recipe_details(recipe_name, ingredients_str):
+    ingredients_list = json.loads(ingredients_str)
+    ingredients_formatted = ', '.join([f"{item['name']} ({item['quantity']} {item['unit']})" for item in ingredients_list])
+    return f"Tên món ăn: {recipe_name}; gồm có các nguyên liệu: {ingredients_formatted}"
+
+# Hàm lấy tên và nguyên liệu từ các recipe_id của general_meal
+def get_recipe_details(general_meal, conn):
+    cursor = conn.cursor()
+    recipe_details = {}
+    final_recipe_details = ""
+
+    for day, meals in general_meal.items():
+        if isinstance(meals, dict):
+            for meal_time, recipes in meals.items():
+                for recipe_id in recipes:
+                    cursor.execute("SELECT name FROM recipes WHERE recipe_id = ?", (recipe_id,))
+                    recipe_name = cursor.fetchone()[0]
+
+                    cursor.execute("SELECT ingredients FROM recipes WHERE recipe_id = ?", (recipe_id,))
+                    ingredients_json = cursor.fetchone()[0] 
+
+                    if isinstance(ingredients_json, str):
+                        ingredients = json.loads(ingredients_json) 
+                    else:
+                        ingredients = ingredients_json
+
+                    formatted_details = format_recipe_details(recipe_name, ingredients_json)
+                    final_recipe_details += formatted_details + "\n"
+        else:
+            print(f"Expected meals to be a dictionary, but got {type(meals)}")
+
+    return final_recipe_details
+
+def parse_ingredients(text):
+    # Loại bỏ các ký tự xuống dòng (\n) để tránh lỗi phân tích
+    text = text.replace("\n", " ")
+    
+    ingredients = []
+    lines = text.splitlines()
+    
+    # Biểu thức chính quy để hỗ trợ cú pháp markdown và các ký tự Unicode
+    pattern = re.compile(r'\*\*(.*?)\*\*[:：]\s*([\d.]+)\s*([^\s]+)')
+
+    # Lặp qua từng dòng và kiểm tra xem có khớp với mẫu không
+    for line in lines:
+        match = pattern.search(line)
+        if match:
+            name = match.group(1).strip()
+            quantity = match.group(2).strip()
+            unit = match.group(3).strip()
+            
+            ingredients.append({
+                "name": name,
+                "quantity": quantity,
+                "unit": unit
+            })
+    
+    result = {
+        "suggested_ingredients": ingredients
+    }
+    return json.dumps(result, ensure_ascii=False, indent=2)
+
 # Hàm chính để tạo thực đơn gia đình
 def get_simple_family_meal(family_id, conn):
     family_members = get_user_by_family_id(conn, family_id)
@@ -155,8 +305,27 @@ def get_simple_family_meal(family_id, conn):
 
     raw_meal = AI_family_meal(family_info, available_meals)
     general_meal = format_meal_plan(raw_meal)
+    # print(json.dumps(general_meal, ensure_ascii=False, indent=4))
+
+    recipe_details = get_recipe_details(general_meal, conn)
     
-    for user in family_members:
-        import_family_meal_to_history(general_meal, user, conn)
+    ans = AI_shopping(family_info, recipe_details)
+
+    text_content = ans["candidates"][0]["content"]["parts"][0]["text"]
+    text_content = text_content.lstrip("```json").rstrip("```").strip()
+    json_content = json.loads(text_content)
+
+    cursor = conn.cursor()
+    today = datetime.datetime.now().date()
+    cursor.execute("""
+        INSERT INTO suggested_ingredients (family_id, day, suggested_ingredients)
+        VALUES (?, ?, ?)
+    """, (family_id, today, json.dumps(json_content, ensure_ascii=False)))
+    conn.commit()
     
+    conn.close()
+
+if __name__ == "__main__":
+    conn = connect_db("../nutrihome.db")
+    get_simple_family_meal(2, conn)
     conn.close()

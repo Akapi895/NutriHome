@@ -4738,5 +4738,532 @@ recipes = [
     "protein": 10.0,
     "fat": 5.0,
     "calories": 220
+},
+{
+    "recipe_id": 215,
+    "name": "Coca Cola",
+    "image": "coca_cola.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:00:00",
+    "ingredients": [
+        {"name": "Coca Cola", "quantity": 1, "unit": "lon"}
+    ],
+    "steps": [
+        "Mở lon Coca Cola và thưởng thức."
+    ],
+    "carbs": 39.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "calories": 140
+},
+{
+    "recipe_id": 216,
+    "name": "Pepsi",
+    "image": "pepsi.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:00:00",
+    "ingredients": [
+        {"name": "Pepsi", "quantity": 1, "unit": "lon"}
+    ],
+    "steps": [
+        "Mở lon Pepsi và thưởng thức."
+    ],
+    "carbs": 41.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "calories": 150
+},
+{
+    "recipe_id": 217,
+    "name": "Trà đá",
+    "image": "tra_da.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:05:00",
+    "ingredients": [
+        {"name": "Trà", "quantity": 1, "unit": "gói"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"},
+        {"name": "Đá", "quantity": 100, "unit": "g"}
+    ],
+    "steps": [
+        "Pha trà với nước nóng.",
+        "Để nguội và thêm đá.",
+        "Thưởng thức."
+    ],
+    "carbs": 0.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "calories": 0
+},
+{
+    "recipe_id": 218,
+    "name": "Nước cam",
+    "image": "nuoc_cam.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Cam", "quantity": 2, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Vắt cam lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 25.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 100
+},
+{
+    "recipe_id": 219,
+    "name": "Nước chanh",
+    "image": "nuoc_chanh.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:05:00",
+    "ingredients": [
+        {"name": "Chanh", "quantity": 1, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Vắt chanh lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 20.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "calories": 80
+},
+{
+    "recipe_id": 220,
+    "name": "Nước dừa",
+    "image": "nuoc_dua.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:00:00",
+    "ingredients": [
+        {"name": "Nước dừa", "quantity": 1, "unit": "trái"}
+    ],
+    "steps": [
+        "Mở trái dừa và thưởng thức nước dừa."
+    ],
+    "carbs": 9.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 45
+},
+{
+    "recipe_id": 221,
+    "name": "Nước ép dứa",
+    "image": "nuoc_ep_dua.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Dứa", "quantity": 1, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép dứa lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 25.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 100
+},
+{
+    "recipe_id": 222,
+    "name": "Nước ép cà rốt",
+    "image": "nuoc_ep_ca_rot.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Cà rốt", "quantity": 2, "unit": "củ"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép cà rốt lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 20.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 80
+},
+{
+    "recipe_id": 223,
+    "name": "Nước ép táo",
+    "image": "nuoc_ep_tao.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Táo", "quantity": 2, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép táo lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 25.0,
+    "protein": 0.5,
+    "fat": 0.0,
+    "calories": 100
+},
+{
+    "recipe_id": 224,
+    "name": "Nước ép dưa hấu",
+    "image": "nuoc_ep_dua_hau.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Dưa hấu", "quantity": 1, "unit": "miếng"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép dưa hấu lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 20.0,
+    "protein": 0.5,
+    "fat": 0.0,
+    "calories": 80
+},
+{
+    "recipe_id": 225,
+    "name": "Nước ép nho",
+    "image": "nuoc_ep_nho.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Nho", "quantity": 200, "unit": "g"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép nho lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 25.0,
+    "protein": 0.5,
+    "fat": 0.0,
+    "calories": 100
+},
+{
+    "recipe_id": 226,
+    "name": "Nước ép lựu",
+    "image": "nuoc_ep_luu.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Lựu", "quantity": 1, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép lựu lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 25.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 100
+},
+{
+    "recipe_id": 227,
+    "name": "Nước ép dâu tây",
+    "image": "nuoc_ep_dau_tay.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Dâu tây", "quantity": 200, "unit": "g"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép dâu tây lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 20.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 80
+},
+{
+    "recipe_id": 228,
+    "name": "Nước ép xoài",
+    "image": "nuoc_ep_xoai.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Xoài", "quantity": 1, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép xoài lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 25.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 100
+},
+{
+    "recipe_id": 229,
+    "name": "Nước ép bưởi",
+    "image": "nuoc_ep_buoi.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:10:00",
+    "ingredients": [
+        {"name": "Bưởi", "quantity": 1, "unit": "quả"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Ép bưởi lấy nước.",
+        "Thêm đường và nước, khuấy đều.",
+        "Thưởng thức."
+    ],
+    "carbs": 20.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "calories": 80
+},
+{
+    "recipe_id": 230,
+    "name": "Trà sữa trân châu",
+    "image": "tra_sua_tran_chau.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:30:00",
+    "ingredients": [
+        {"name": "Trà đen", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa đặc", "quantity": 2, "unit": "muỗng canh"},
+        {"name": "Trân châu", "quantity": 50, "unit": "g"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha trà đen với nước nóng.",
+        "Thêm sữa đặc và đường, khuấy đều.",
+        "Nấu trân châu cho đến khi chín.",
+        "Cho trân châu vào ly, thêm trà sữa và thưởng thức."
+    ],
+    "carbs": 30.0,
+    "protein": 2.0,
+    "fat": 1.0,
+    "calories": 150
+},
+{
+    "recipe_id": 231,
+    "name": "Trà sữa matcha",
+    "image": "tra_sua_matcha.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:20:00",
+    "ingredients": [
+        {"name": "Matcha", "quantity": 1, "unit": "muỗng cà phê"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 50, "unit": "ml"}
+    ],
+    "steps": [
+        "Hòa tan matcha với nước nóng.",
+        "Thêm sữa tươi và đường, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 20.0,
+    "protein": 3.0,
+    "fat": 2.0,
+    "calories": 120
+},
+{
+    "recipe_id": 232,
+    "name": "Trà sữa thái xanh",
+    "image": "tra_sua_thai_xanh.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:25:00",
+    "ingredients": [
+        {"name": "Trà thái xanh", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa đặc", "quantity": 2, "unit": "muỗng canh"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha trà thái xanh với nước nóng.",
+        "Thêm sữa đặc và đường, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 25.0,
+    "protein": 2.0,
+    "fat": 1.0,
+    "calories": 130
+},
+{
+    "recipe_id": 233,
+    "name": "Trà sữa hồng trà",
+    "image": "tra_sua_hong_tra.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:20:00",
+    "ingredients": [
+        {"name": "Hồng trà", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha hồng trà với nước nóng.",
+        "Thêm sữa tươi và đường, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 20.0,
+    "protein": 3.0,
+    "fat": 2.0,
+    "calories": 120
+},
+{
+    "recipe_id": 234,
+    "name": "Trà sữa ô long",
+    "image": "tra_sua_o_long.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:20:00",
+    "ingredients": [
+        {"name": "Trà ô long", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha trà ô long với nước nóng.",
+        "Thêm sữa tươi và đường, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 20.0,
+    "protein": 3.0,
+    "fat": 2.0,
+    "calories": 120
+},
+{
+    "recipe_id": 235,
+    "name": "Trà sữa socola",
+    "image": "tra_sua_socola.jpg",
+    "rating": 4.9,
+    "cooking_time": "00:20:00",
+    "ingredients": [
+        {"name": "Bột cacao", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 50, "unit": "ml"}
+    ],
+    "steps": [
+        "Hòa tan bột cacao với nước nóng.",
+        "Thêm sữa tươi và đường, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 25.0,
+    "protein": 3.0,
+    "fat": 3.0,
+    "calories": 150
+},
+{
+    "recipe_id": 236,
+    "name": "Trà sữa caramel",
+    "image": "tra_sua_caramel.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:25:00",
+    "ingredients": [
+        {"name": "Trà đen", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa đặc", "quantity": 2, "unit": "muỗng canh"},
+        {"name": "Caramel", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha trà đen với nước nóng.",
+        "Thêm sữa đặc và caramel, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 30.0,
+    "protein": 2.0,
+    "fat": 2.0,
+    "calories": 160
+},
+{
+    "recipe_id": 237,
+    "name": "Trà sữa dâu",
+    "image": "tra_sua_dau.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:20:00",
+    "ingredients": [
+        {"name": "Trà đen", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Syrup dâu", "quantity": 2, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha trà đen với nước nóng.",
+        "Thêm sữa tươi và syrup dâu, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 25.0,
+    "protein": 3.0,
+    "fat": 2.0,
+    "calories": 140
+},
+{
+    "recipe_id": 238,
+    "name": "Trà sữa khoai môn",
+    "image": "tra_sua_khoai_mon.jpg",
+    "rating": 4.8,
+    "cooking_time": "00:30:00",
+    "ingredients": [
+        {"name": "Trà đen", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Khoai môn", "quantity": 50, "unit": "g"},
+        {"name": "Đường", "quantity": 1, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Nấu khoai môn cho đến khi chín mềm, nghiền nhuyễn.",
+        "Pha trà đen với nước nóng.",
+        "Thêm sữa tươi, khoai môn và đường, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 30.0,
+    "protein": 3.0,
+    "fat": 2.0,
+    "calories": 150
+},
+{
+    "recipe_id": 239,
+    "name": "Trà sữa bạc hà",
+    "image": "tra_sua_bac_ha.jpg",
+    "rating": 4.7,
+    "cooking_time": "00:20:00",
+    "ingredients": [
+        {"name": "Trà đen", "quantity": 2, "unit": "gói"},
+        {"name": "Sữa tươi", "quantity": 200, "unit": "ml"},
+        {"name": "Syrup bạc hà", "quantity": 2, "unit": "muỗng canh"},
+        {"name": "Nước", "quantity": 200, "unit": "ml"}
+    ],
+    "steps": [
+        "Pha trà đen với nước nóng.",
+        "Thêm sữa tươi và syrup bạc hà, khuấy đều.",
+        "Thưởng thức ngay."
+    ],
+    "carbs": 25.0,
+    "protein": 3.0,
+    "fat": 2.0,
+    "calories": 140
 }
 ]
