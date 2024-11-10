@@ -73,8 +73,8 @@ def AI_family_meal(family_info, available_meals):
                             Bữa trưa cần đủ đạm, rau xanh, và tinh bột, tránh thức ăn quá dầu mỡ. 
                             Bữa tối nên nhẹ nhàng, ít tinh bột và dầu mỡ, tập trung vào rau xanh và đạm dễ tiêu. 
                             Trả về kết quả ở định dạng JSON. 
-                            'eaten' mặc định bằng 0. Không cần thêm \n hoặc \t vào kết quả trả về.
-                            Kết quả trả về dưới dạng các object gồm: "recipe_id": 34, "day": '2024-11-09', "meal": "lunch", "eaten": 0, 
+                            Không cần thêm \n hoặc \t vào kết quả trả về.
+                            Kết quả trả về dưới dạng các object gồm: "recipe_id": 34, "day": '2024-11-09', "meal": "lunch", 
                             """
                     }
                 ]
@@ -191,31 +191,22 @@ def AI_shopping(final_ingredients):
 # import các món ăn chung cho gia đình vào eating_histories cho từng member
 def insert_family_meal_to_db(family_id, general_meal, conn):
     cursor = conn.cursor()
-    cursor.execute("""
-        SELECT user_id FROM users
-        WHERE family_id = ?
-    """, (family_id,))
-    
-    user_ids = [user[0] for user in cursor.fetchall()]
 
     insert_query = """
-    INSERT INTO eating_histories (user_id, recipe_id, day, meal, eaten) 
-    VALUES (:user_id, :recipe_id, :day, :meal, :eaten)
+    INSERT INTO family_base (family_id, recipe_id, day, meal) 
+    VALUES (:family_id, :recipe_id, :day, :meal)
     """
     
     try:
-        for user_id in user_ids:
-            for meal in general_meal:
-                cursor.execute(insert_query, {
-                    'user_id': user_id,
-                    'recipe_id': meal['recipe_id'],
-                    'day': meal['day'],
-                    'meal': meal['meal'],
-                    'eaten': meal.get('eaten', 0)  
-                })
+        for meal in general_meal:
+            cursor.execute(insert_query, {
+                'family_id': family_id,
+                'recipe_id': meal['recipe_id'],
+                'day': meal['day'],
+                'meal': meal['meal'],
+            })
         conn.commit()
-    except sqlite3.Error as e:
-        print("Lỗi khi chèn dữ liệu:", e)
+
     finally:
         cursor.close() 
 
@@ -242,3 +233,6 @@ def get_simple_family_meal(family_id):
     conn.commit()
 
     conn.close()
+
+if __name__ == '__main__':
+    get_simple_family_meal(2)

@@ -12,12 +12,20 @@ def connect_db(db_name, timeout=30):
 
 # Lấy ra những món ăn đã được lưu trước trong tuần này (gồm 7 ngày)
 def get_current_meal(conn, user_id, day=datetime.datetime.now().date()):
+    conn = connect_db("../nutrihome.db")
     cursor = conn.cursor()
     cursor.execute("""
+        SELECT family_id
+        FROM users WHERE user_id = ?
+    """, (user_id,))
+    result = cursor.fetchone()
+    family_id = int(result[0]) if result and result[0] is not None else None
+
+    cursor.execute("""
         SELECT recipe_id
-        FROM eating_histories
-        WHERE user_id = ? AND day >= ? AND eaten = 0
-    """, (user_id, day))
+        FROM family_base
+        WHERE family_id = ? AND day >= ?
+    """, (family_id, day))
     recipes = cursor.fetchall()
     current_meal = [recipe[0] for recipe in recipes]
 
@@ -33,8 +41,9 @@ def get_current_meal(conn, user_id, day=datetime.datetime.now().date()):
             name, carbs, protein, fat, calories = recipe
             meal_details.append(f"Tên món có id {recipe_id} là {name}, với lượng chất dinh dưỡng là {carbs}g carbs, {protein}g protein, {fat}g fat và {calories} calories")
     
-    meal_details_str = "; ".join(meal_details)
-
+    if meal_details:
+        meal_details_str = "; ".join(meal_details)
+    else: meal_details_str = ""
     return meal_details_str
 
 # Lấy thông tin cá nhân của user
@@ -91,7 +100,7 @@ def personal_menu(user_id, user_calo, available_meals, current_meal):
                             thường có một trong các món sau: bánh mì, phở, bún, cháo, xôi, bánh cuốn, mì, cơm.  
                             Bữa trưa cần đủ đạm, rau xanh, và tinh bột, tránh thức ăn quá dầu mỡ. 
                             Bữa tối nên nhẹ nhàng, ít tinh bột và dầu mỡ, tập trung vào rau xanh và đạm dễ tiêu. 
-                            Trả về kết quả ở định dạng JSON, chứa thông tin chi tiết về các món ăn được bổ sung, 
+                            Trả về kết quả ở định dạng JSON, chứa thông tin chi tiết gồm cả các món ăn được bổ sung và các món ăn đã có, 
                             không giải thích hay có thông tin gì thêm. 
                             Không cần thêm \n hoặc \t vào kết quả trả về. 
                             Với eaten mặc định bằng 0, user_id là {user_id} lấy trong thông tin cá nhân của tôi. 
@@ -152,6 +161,24 @@ def bonus_meal(user_id):
     except sqlite3.Error as e:
         print("Lỗi khi chèn dữ liệu:", e)
 
+def delete_eating_histories():
+    conn = connect_db("../nutrihome.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        DELETE FROM family_base;
+    """)
+    conn.commit()
+    
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name = 'family_base';")
+    conn.commit()
+
+    cursor.execute("""
+        VACUUM;
+    """)
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 if __name__ == "__main__":
-    bonus_meal(1)
+    delete_eating_histories()
+    # bonus_meal(4)
