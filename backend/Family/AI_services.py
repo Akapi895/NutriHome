@@ -17,20 +17,26 @@ def get_members_info(conn, family_id):
         SELECT 
             user_id, gender, dob, weight, height, 
             activity_level, target_protein, 
-            target_fat, target_carbs, target_calories
+            target_fat, target_carbs, target_calories,
+            disease, allergen
         FROM users
         WHERE family_id = {family_id}
     """)
     users_info = cursor.fetchall()
     user_info_strings = []
     for user in users_info:
-        user_id, gender, dob, weight, height, activity_level, target_protein, target_fat, target_carbs, target_calories = user
+        user_id, gender, dob, weight, height, activity_level, target_protein, target_fat, target_carbs, target_calories, disease, allergen = user
         user_info_string = (
             f"Người dùng có user_id {user_id} là {gender} sinh ngày {dob.strip()}, "
             f"cao {height}cm, nặng {weight}kg, với mức năng động {activity_level}, "
             f"có lượng dưỡng chất cần thiết mỗi ngày là {target_protein}g protein, {target_fat}g fat, "
             f"{target_carbs}g carbs, {target_calories} calories"
         )
+        if disease:
+            user_info_string += f", bệnh: {disease}"
+        if allergen:
+            user_info_string += f", dị ứng: {allergen}"
+
         user_info_strings.append(user_info_string)
     
     # Join all user info strings with a semicolon and a space
@@ -72,6 +78,7 @@ def AI_family_meal(family_info, available_meals):
                             bữa sáng thường có một trong các món sau: bánh mì, phở, bún, cháo, xôi, bánh cuốn, mì, cơm. 
                             Bữa trưa cần đủ đạm, rau xanh, và tinh bột, tránh thức ăn quá dầu mỡ. 
                             Bữa tối nên nhẹ nhàng, ít tinh bột và dầu mỡ, tập trung vào rau xanh và đạm dễ tiêu. 
+                            Lưu ý tránh các món có thành viên gia đình dị ứng hoặc bệnh.
                             Trả về kết quả ở định dạng JSON. 
                             Không cần thêm \n hoặc \t vào kết quả trả về.
                             Kết quả trả về dưới dạng các object gồm: "recipe_id": 34, "day": '2024-11-09', "meal": "lunch", 
@@ -212,9 +219,10 @@ def insert_family_meal_to_db(family_id, general_meal, conn):
 
 # Hàm chính để tạo thực đơn gia đình
 def get_simple_family_meal(family_id):
-    conn = connect_db("../nutrihome.db")
+    conn = connect_db("../../nutrihome.db")
 
     family_info = get_members_info(conn, family_id)
+
     available_meals = get_all_recipes(conn)
     general_meal = AI_family_meal(family_info, available_meals)
     
@@ -235,4 +243,4 @@ def get_simple_family_meal(family_id):
     conn.close()
 
 if __name__ == '__main__':
-    get_simple_family_meal(2)
+    get_simple_family_meal(1)
